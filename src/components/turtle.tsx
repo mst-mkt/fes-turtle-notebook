@@ -1,19 +1,19 @@
 import type { FC } from "react";
-import { useCallback, useState } from "react";
-import { usePyodide } from "../hooks/usePyodide";
+import { useCallback } from "react";
+import { usePyodideManager } from "../hooks/usePyodideManager";
+import { useTurtleCanvas } from "../hooks/useTurtleCanvas";
 
 interface TurtleProps {
   code?: string;
 }
 
 export const Turtle: FC<TurtleProps> = ({ code }) => {
-  const { runWithDisplay, clearScene, svgContent } = usePyodide();
-  const [isRunning, setIsRunning] = useState(false);
+  const { isLoading } = usePyodideManager();
+  const { runWithDisplay, clearScene, svgContent, isRunning } =
+    useTurtleCanvas();
 
   const runCode = useCallback(async () => {
     if (!code?.trim()) return;
-
-    setIsRunning(true);
 
     try {
       await runWithDisplay(code);
@@ -21,8 +21,6 @@ export const Turtle: FC<TurtleProps> = ({ code }) => {
       const errorMessage =
         error instanceof Error ? error.message : "Unknown error occurred";
       console.error("Error running turtle code:", errorMessage);
-    } finally {
-      setIsRunning(false);
     }
   }, [code, runWithDisplay]);
 
@@ -36,16 +34,20 @@ export const Turtle: FC<TurtleProps> = ({ code }) => {
         <button
           type="button"
           onClick={runCode}
-          disabled={!code?.trim() || isRunning}
+          disabled={!code?.trim() || isRunning || isLoading}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
         >
-          {isRunning ? "Running..." : "Run Turtle Code"}
+          {isLoading
+            ? "Loading..."
+            : isRunning
+              ? "Running..."
+              : "Run Turtle Code"}
         </button>
 
         <button
           type="button"
           onClick={handleClear}
-          disabled={isRunning}
+          disabled={isRunning || isLoading}
           className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
         >
           Clear

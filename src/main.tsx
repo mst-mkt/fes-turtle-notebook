@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 import "./index.css";
 import init from "@wasm-fmt/ruff_fmt/vite";
-import { PyodideProvider } from "./hooks/usePyodide.tsx";
+import { PyodideManagerProvider } from "./hooks/usePyodideManager.tsx";
 
 const rootElement = document.getElementById("root");
 
@@ -15,8 +15,8 @@ await init();
 
 createRoot(rootElement).render(
   <StrictMode>
-    <PyodideProvider>
+    <PyodideManagerProvider>
       <App />
-    </PyodideProvider>
+    </PyodideManagerProvider>
   </StrictMode>,
 );
