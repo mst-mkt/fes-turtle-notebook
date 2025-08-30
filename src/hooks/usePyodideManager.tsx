@@ -10,6 +10,7 @@ import {
   useRef,
   useState,
 } from "react";
+import turtle from "../../turtle/turtle-0.0.1-py3-none-any.whl";
 
 interface PyodideManagerContextType {
   isLoading: boolean;
@@ -35,12 +36,12 @@ export const PyodideManagerProvider: FC<PyodideManagerProviderProps> = ({
 
   const initializePyodide = useCallback(async () => {
     const pyodideInstance = await loadPyodide({
-      indexURL: "../../node_modules/pyodide/",
+      indexURL: import.meta.env.DEV
+        ? "../../node_modules/pyodide/"
+        : "/pyodide/",
     });
 
-    await pyodideInstance.loadPackage(
-      "../../turtle/turtle-0.0.1-py3-none-any.whl",
-    );
+    await pyodideInstance.loadPackage(turtle);
 
     return pyodideInstance;
   }, []);
