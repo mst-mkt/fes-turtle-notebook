@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
+    "@tailwindcss/typography": "^0.5.16",
     "@wasm-fmt/ruff_fmt": "^0.10.0",
     "pyodide": "^0.28.2",
     "react": "^19.1.1",
