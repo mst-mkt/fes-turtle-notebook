@@ -1,3 +1,4 @@
+import { IconPlayerPlay, IconReload } from "@tabler/icons-react";
 import type { FC } from "react";
 import { useCallback } from "react";
 import { usePyodideManager } from "../hooks/usePyodideManager";
@@ -29,40 +30,35 @@ export const Turtle: FC<TurtleProps> = ({ code }) => {
   }, [clearScene]);
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex gap-2">
-        <button
-          type="button"
-          onClick={runCode}
-          disabled={!code?.trim() || isRunning || isLoading}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-        >
-          {isLoading
-            ? "Loading..."
-            : isRunning
-              ? "Running..."
-              : "Run Turtle Code"}
-        </button>
-
-        <button
-          type="button"
-          onClick={handleClear}
-          disabled={isRunning || isLoading}
-          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-        >
-          Clear
-        </button>
-      </div>
-      <div className="border border-gray-300 rounded-lg p-4">
+    <div className="flex flex-col gap-4 not-prose">
+      <div className="border border-gray-300 rounded-lg p-4 relative">
         {svgContent ? (
-          <div
-            className="flex justify-center [&>svg]:h-64"
-            // biome-ignore lint/security/noDangerouslySetInnerHtml: SVGの要素を埋め込む必要がある
-            dangerouslySetInnerHTML={{ __html: svgContent }}
-          />
+          <>
+            <div
+              className="[&>svg]:h-64"
+              // biome-ignore lint/security/noDangerouslySetInnerHtml: SVGの要素を埋め込む必要がある
+              dangerouslySetInnerHTML={{ __html: svgContent }}
+            />
+            <button
+              type="button"
+              onClick={handleClear}
+              className="absolute top-4 right-4 p-2 rounded-md border border-gray-300 shadow-xs cursor-pointer hover:bg-gray-100 transition-colors"
+            >
+              <IconReload className="text-gray-500" size={16} />
+            </button>
+          </>
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-500">
-            <p>Turtle graphics will appear here</p>
+          <div className="flex flex-col items-center gap-y-2 text-gray-500">
+            <p className="m-0">Turtle graphics will appear here</p>
+            <button
+              type="button"
+              onClick={runCode}
+              disabled={!code?.trim() || isRunning || isLoading}
+              className="flex items-center gap-x-2 ps-3 pe-4 cursor-pointer hover:bg-amber-700 transition-colors py-2 rounded-lg bg-amber-600 text-white"
+            >
+              <IconPlayerPlay />
+              Run Turtle Code
+            </button>
           </div>
         )}
       </div>

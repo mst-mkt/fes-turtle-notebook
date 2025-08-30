@@ -3,7 +3,7 @@ import { Playground } from "./components/playground";
 export const App = () => (
   <div className="prose max-w-[92svw] w-192 mx-auto flex flex-col gap-y-8 py-8">
     <header>
-      <h1>Python Turtle Graphics 学習プレイグラウンド</h1>
+      <h1>Python Turtle Graphics</h1>
       <p>
         Python の Turtle Graphics
         を使って、プログラミングの基礎を楽しく学びましょう！
