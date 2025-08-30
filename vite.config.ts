@@ -13,11 +13,20 @@ export default defineConfig({
           src: "node_modules/pyodide/pyodide-lock.json",
           dest: "pyodide",
         },
+        {
+          src: "node_modules/pyodide/python_stdlib.zip",
+          dest: "pyodide",
+        },
+        {
+          src: "node_modules/pyodide/pyodide.asm.wasm",
+          dest: "pyodide",
+        },
+        {
+          src: "node_modules/pyodide/pyodide.asm.js",
+          dest: "pyodide",
+        },
       ],
     }),
   ],
   assetsInclude: ["**/*.whl"],
-  optimizeDeps: {
-    exclude: ["pyodide"],
-  },
 });
