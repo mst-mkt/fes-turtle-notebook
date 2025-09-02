@@ -1,3 +1,4 @@
+import { IconBell } from "@tabler/icons-react";
 import { Playground } from "./components/playground";
 
 export const App = () => (
@@ -11,6 +12,14 @@ export const App = () => (
         各ステップで実際にコードを実行して、図形がどのように描かれるか確認できます。
       </p>
     </header>
+
+    <div className="flex items-center not-prose p-4 border-2 border-amber-700/10 rounded-lg bg-amber-100/10 gap-x-4">
+      <IconBell size={24} className="text-amber-500 shrink-0" />
+      <p>
+        現在あるコンテンツの内容 (文章, サンプルコード)
+        やその構成はAIによって生成されたものであり、実際の教材として使用できるものではありません。
+      </p>
+    </div>
 
     <section>
       <h2>ステップ 1: 基本的な線を描く</h2>
